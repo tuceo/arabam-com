@@ -1,4 +1,4 @@
-import DetailView from '@/views/detailView.vue'
+import DetailView from '@/views/DetailView.vue'
 import ListingView from '@/views/ListingView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
