@@ -11,6 +11,8 @@
         v-for="(photo, index) in props.photos"
         :key="index"
         :class="{ active: activePhotoIndex === index }"
+        @click="activePhotoIndex = index"
+        style="cursor: pointer"
       ></div>
     </div>
   </div>

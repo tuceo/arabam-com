@@ -7,7 +7,7 @@
     <CarInfo :carDetail="props.carDetail" />
   </div>
 
-  <CarDescription :carDetail="props.carDetail" />
+  <CarDescription :description="props.carDetail.text" />
 </template>
 
 <script setup lang="ts">

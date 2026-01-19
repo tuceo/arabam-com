@@ -1,15 +1,13 @@
 <template>
   <div class="description-container">
     <h3>İlan Açıklaması</h3>
-    <div class="html-content" v-html="props.carDetail.text"></div>
+    <div class="html-content" v-html="props.description"></div>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { CarDetail } from '@/utils/types'
-
 const props = defineProps<{
-  carDetail: CarDetail
+  description: string
 }>()
 </script>
 

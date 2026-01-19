@@ -65,14 +65,13 @@ const error = ref(false)
 const fetchCars = async () => {
   loading.value = true
   try {
-    const response = await axios.get(
-      'https://sandbox.arabamd.com/api/v1/listing?take=' +
-        itemsPerPage.value +
-        '&sort=' +
-        sort.value +
-        '&sortDirection=' +
-        direction.value,
-    )
+    const response = await axios.get('https://sandbox.arabamd.com/api/v1/listing', {
+      params: {
+        take: itemsPerPage.value,
+        sort: sort.value,
+        sortDirection: direction.value,
+      },
+    })
     cars.value = response.data
   } catch {
     error.value = true
