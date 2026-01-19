@@ -16,11 +16,12 @@ const props = defineProps<{
 <style scoped>
 .description-container {
   margin-top: 40px;
-  border-top: 1px solid var(--color-gray);
-  padding-top: 20px;
+  padding: 15px;
+  background: var(--color-white);
+  border-radius: 4px;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.06);
 }
 .html-content {
-  line-height: 1.6;
   color: var(--color-text-main);
   font-size: 14px;
 }

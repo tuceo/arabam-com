@@ -27,5 +27,6 @@ const props = defineProps<{
   display: grid;
   grid-template-columns: 1fr 350px;
   gap: 30px;
+  align-items: start;
 }
 </style>
