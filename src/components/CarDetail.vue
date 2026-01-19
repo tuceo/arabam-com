@@ -2,7 +2,7 @@
   <CarHeader :carDetail="props.carDetail" />
 
   <div class="main-container">
-    <CarImageSlider :carDetail="props.carDetail" />
+    <CarImageSlider :photos="props.carDetail.photos" :modelName="props.carDetail.modelName" />
 
     <CarInfo :carDetail="props.carDetail" />
   </div>

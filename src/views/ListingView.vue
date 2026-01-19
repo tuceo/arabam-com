@@ -1,11 +1,35 @@
 <template>
-  <div class="listing-options">
-    <div class="page-size-selector">
-      <label for="perPage">Görünüm:</label>
-      <select id="perPage" v-model="itemsPerPage" class="custom-select">
-        <option :value="20">20 Ürün</option>
-        <option :value="50">50 Ürün</option>
-      </select>
+  <div class="listing-header">
+    <div class="options-group">
+      <div class="selector">
+        <label>Sıralama:</label>
+        <select
+          :value="`${sort}-${direction}`"
+          @change="
+            (e) => {
+              const [s, d] = (e.target as HTMLSelectElement).value.split('-')
+              sort = Number(s)
+              direction = Number(d)
+            }
+          "
+          class="custom-select"
+        >
+          <option value="0-0">Fiyata Göre Artan</option>
+          <option value="0-1">Fiyata Göre Azalan</option>
+          <option value="1-1">Tarihe Göre En Yeni</option>
+          <option value="1-0">Tarihe Göre En Eski</option>
+          <option value="2-1">Yıla Göre En Yeni</option>
+          <option value="2-0">Yıla Göre En Eski</option>
+        </select>
+      </div>
+
+      <div class="selector">
+        <label>Görünüm:</label>
+        <select v-model="itemsPerPage" class="custom-select">
+          <option :value="20">20 Ürün</option>
+          <option :value="50">50 Ürün</option>
+        </select>
+      </div>
     </div>
   </div>
 
@@ -31,6 +55,8 @@ const route = useRoute()
 const router = useRouter()
 
 const itemsPerPage = ref(Number(route.query.limit) || 20)
+const sort = ref(Number(route.query.sort) || 0)
+const direction = ref(Number(route.query.direction) || 1)
 
 const cars = ref<Car[]>([])
 const loading = ref(true)
@@ -40,7 +66,12 @@ const fetchCars = async () => {
   loading.value = true
   try {
     const response = await axios.get(
-      'https://sandbox.arabamd.com/api/v1/listing?take=' + itemsPerPage.value,
+      'https://sandbox.arabamd.com/api/v1/listing?take=' +
+        itemsPerPage.value +
+        '&sort=' +
+        sort.value +
+        '&sortDirection=' +
+        direction.value,
     )
     cars.value = response.data
   } catch {
@@ -50,44 +81,56 @@ const fetchCars = async () => {
   }
 }
 
-watch(itemsPerPage, (newLimit) => {
+watch([itemsPerPage, sort, direction], ([newLimit, newSort, newDirection]) => {
   router.replace({
-    query: { ...route.query, limit: newLimit.toString() },
+    query: {
+      ...route.query,
+      limit: newLimit.toString(),
+      sort: newSort.toString(),
+      direction: newDirection.toString(),
+    },
   })
 })
 
 watch(
-  () => route.query.limit,
+  () => route.query,
   () => {
     fetchCars()
   },
+  { deep: true },
 )
 
 onMounted(fetchCars)
 </script>
 
 <style scoped>
-.listing-options {
+.listing-header {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 15px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 10px;
 }
 
-.page-size-selector {
+.options-group {
+  display: flex;
+  gap: 20px;
+}
+
+.selector {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   font-size: 13px;
   color: var(--color-text-muted);
 }
 
 .custom-select {
-  padding: 5px 10px;
+  padding: 6px 12px;
   border: 1px solid var(--color-border);
   border-radius: 4px;
-  background-color: var(--color-white);
-  color: var(--color-text-main);
-  cursor: pointer;
+  background: white;
+  font-size: 13px;
   outline: none;
 }
 
