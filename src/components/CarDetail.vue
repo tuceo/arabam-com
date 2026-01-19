@@ -1,7 +1,7 @@
 <template>
   <CarHeader :carDetail="props.carDetail" />
 
-  <div class="main-container">
+  <div class="grid grid-cols-1 items-start gap-5 md:grid-cols-[1fr_350px]">
     <CarImageSlider :photos="props.carDetail.photos" :modelName="props.carDetail.modelName" />
 
     <CarInfo :carDetail="props.carDetail" />
@@ -21,19 +21,3 @@ const props = defineProps<{
   carDetail: CarDetail
 }>()
 </script>
-
-<style scoped>
-.main-container {
-  display: grid;
-  grid-template-columns: 1fr 350px;
-  gap: 30px;
-  align-items: start;
-}
-
-@media (max-width: 904px) {
-  .main-container {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-}
-</style>

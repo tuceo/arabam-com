@@ -1,18 +1,34 @@
 <template>
-  <div class="image-container">
-    <button class="slider-nav prev" @click="prevPhoto">❮</button>
+  <div
+    class="relative flex h-75 md:h-120 w-full items-center justify-center overflow-hidden rounded bg-black"
+  >
+    <button
+      class="absolute left-0 top-1/2 z-10 -translate-y-1/2 cursor-pointer rounded-r border-none bg-black/40 p-2 text-lg text-white hover:text-gray-600 md:px-2 md:text-2xl"
+      @click="prevPhoto"
+    >
+      ❮
+    </button>
 
-    <img :src="formatPhoto(props.photos[activePhotoIndex])" :alt="props.modelName" />
+    <img
+      :src="formatPhoto(props.photos[activePhotoIndex])"
+      :alt="props.modelName"
+      class="max-h-full max-w-full object-contain"
+    />
 
-    <button class="slider-nav next" @click="nextPhoto">❯</button>
+    <button
+      class="absolute right-0 top-1/2 z-10 -translate-y-1/2 cursor-pointer rounded-l border-none bg-black/40 p-2 text-lg text-white hover:text-gray-600 md:px-2 md:text-2xl"
+      @click="nextPhoto"
+    >
+      ❯
+    </button>
 
-    <div class="photo-indexes">
+    <div class="absolute bottom-2 flex gap-2">
       <div
         v-for="(photo, index) in props.photos"
         :key="index"
-        :class="{ active: activePhotoIndex === index }"
+        class="h-2.5 w-2.5 cursor-pointer rounded-full bg-gray-600"
+        :class="{ 'bg-gray-800': activePhotoIndex === index }"
         @click="activePhotoIndex = index"
-        style="cursor: pointer"
       ></div>
     </div>
   </div>
@@ -48,79 +64,3 @@ const formatPhoto = (photoUrl: string | undefined): string => {
   return photoUrl ? photoUrl.replace('{0}', '800x600') : ''
 }
 </script>
-
-<style scoped>
-.image-container {
-  position: relative;
-  width: 100%;
-  height: 450px;
-  background-color: var(--color-black);
-  border-radius: 4px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.image-container img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-
-.slider-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.4);
-  color: var(--color-white);
-  border: none;
-  padding: 15px 10px;
-  cursor: pointer;
-  font-size: 24px;
-  z-index: 10;
-}
-
-.slider-nav:hover {
-  background: rgba(0, 0, 0, 0.7);
-  color: var(--color-gray);
-}
-
-.prev {
-  left: 0;
-  border-radius: 0 4px 4px 0;
-}
-
-.next {
-  right: 0;
-  border-radius: 4px 0 0 4px;
-}
-
-.photo-indexes {
-  position: absolute;
-  bottom: 15px;
-  display: flex;
-  gap: 8px;
-}
-
-.photo-indexes div {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: var(--color-gray);
-}
-
-.photo-indexes div.active {
-  background-color: var(--color-light-gray);
-}
-
-@media (max-width: 768px) {
-  .image-container {
-    height: 300px;
-  }
-  .slider-nav {
-    padding: 15px 8px;
-    font-size: 18px;
-  }
-}
-</style>

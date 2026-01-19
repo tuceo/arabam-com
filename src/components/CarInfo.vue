@@ -1,26 +1,32 @@
 <template>
-  <div class="car-info">
-    <div class="price-box">
+  <div class="rounded bg-white shadow-sm">
+    <div class="border-b-2 border-red-600 p-5 text-2xl font-bold text-red-600">
       {{ props.carDetail.priceFormatted }}
     </div>
 
-    <div class="properties">
-      <div v-for="prop in props.carDetail.properties" :key="prop.name" class="property">
-        <span class="label">{{ prop.name.toUpperCase() }}</span>
-        <span class="value">{{ prop.value }}</span>
+    <div class="p-5">
+      <div
+        v-for="prop in props.carDetail.properties"
+        :key="prop.name"
+        class="flex justify-between pb-5 text-sm"
+      >
+        <span class="font-semibold text-gray-600">{{ prop.name.toUpperCase() }}</span>
+        <span class="text-gray-800">{{ prop.value }}</span>
       </div>
-      <div class="property">
-        <span class="label">İLAN TARİHİ</span>
-        <span class="value">{{ props.carDetail.dateFormatted }}</span>
+      <div class="flex justify-between text-sm">
+        <span class="font-semibold text-gray-600">İLAN TARİHİ</span>
+        <span class="text-gray-800">{{ props.carDetail.dateFormatted }}</span>
       </div>
     </div>
 
-    <div class="user-card">
-      <div class="user-info">
-        <div class="avatar">{{ props.carDetail.userInfo.nameSurname[0] }}</div>
-        <p class="username">{{ props.carDetail.userInfo.nameSurname }}</p>
+    <div class="border-t border-gray-200 p-5 text-center">
+      <div class="mb-5 flex items-center gap-2.5">
+        <div class="bg-gray-600 flex h-10 w-10 items-center justify-center rounded-full font-bold">
+          {{ props.carDetail.userInfo.nameSurname[0] }}
+        </div>
+        <p class="m-0 font-bold">{{ props.carDetail.userInfo.nameSurname }}</p>
       </div>
-      <button class="phone-btn">
+      <button class="w-full rounded bg-red-600 p-2 font-bold text-white border-none">
         {{ props.carDetail.userInfo.phoneFormatted }}
       </button>
     </div>
@@ -34,78 +40,3 @@ const props = defineProps<{
   carDetail: CarDetail
 }>()
 </script>
-
-<style scoped>
-.car-info {
-  background: var(--color-white);
-  border-radius: 4px;
-  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.06);
-}
-
-.price-box {
-  padding: 15px;
-  border-bottom: 2px solid var(--color-red);
-  font-size: 24px;
-  font-weight: bold;
-  color: var(--color-red);
-}
-
-.properties {
-  padding: 15px;
-}
-
-.property {
-  padding-bottom: 15px;
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-}
-
-.property .label {
-  color: var(--color-text-light);
-  font-weight: 600;
-}
-
-.property .value {
-  color: var(--color-text-main);
-}
-
-.user-card {
-  padding: 15px;
-  border-top: 1px solid var(--color-gray);
-  text-align: center;
-}
-
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.avatar {
-  width: 40px;
-  height: 40px;
-  background: var(--color-gray);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-}
-
-.username {
-  font-weight: bold;
-  margin: 0;
-}
-
-.phone-btn {
-  width: 100%;
-  border: none;
-  background: var(--color-red);
-  color: var(--color-white);
-  padding: 10px;
-  border-radius: 4px;
-  font-weight: bold;
-}
-</style>

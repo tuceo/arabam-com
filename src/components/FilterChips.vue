@@ -1,11 +1,28 @@
 <template>
-  <div v-if="filters.length > 0" class="active-filters-area">
-    <div class="filter-chips">
-      <div v-for="filter in filters" :key="filter.id" class="chip">
+  <div
+    v-if="filters.length > 0"
+    class="mb-2 rounded border border-dashed border-gray-200 bg-white p-5"
+  >
+    <div class="flex flex-wrap items-center gap-2">
+      <div
+        v-for="filter in filters"
+        :key="filter.id"
+        class="flex items-center rounded-2xl border border-gray-200 bg-gray-100 p-2 text-xs"
+      >
         {{ filter.label }}
-        <button @click="filter.clear" class="remove-chip">&times;</button>
+        <button
+          @click="filter.clear"
+          class="ml-2 cursor-pointer border-none bg-none text-lg leading-none text-gray-600"
+        >
+          &times;
+        </button>
       </div>
-      <button @click="$emit('clear-all')" class="clear-all-link">Filtreleri Temizle</button>
+      <button
+        @click="$emit('clear-all')"
+        class="cursor-pointer border-none bg-none text-xs text-red-600 underline"
+      >
+        Filtreleri Temizle
+      </button>
     </div>
   </div>
 </template>
@@ -23,45 +40,3 @@ defineProps<{
 
 defineEmits(['clear-all'])
 </script>
-
-<style scoped>
-.active-filters-area {
-  padding: 10px 15px;
-  background-color: var(--color-white);
-  border: 1px dashed var(--color-gray);
-  border-radius: 4px;
-  margin-bottom: 10px;
-}
-.filter-chips {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-}
-.chip {
-  display: flex;
-  align-items: center;
-  background-color: var(--color-light-gray);
-  border: 1px solid var(--color-gray);
-  padding: 4px 10px;
-  border-radius: 16px;
-  font-size: 12px;
-}
-.remove-chip {
-  background: none;
-  border: none;
-  color: var(--color-text-light);
-  font-size: 18px;
-  margin-left: 5px;
-  cursor: pointer;
-  line-height: 1;
-}
-.clear-all-link {
-  background: none;
-  border: none;
-  color: var(--color-red);
-  font-size: 12px;
-  text-decoration: underline;
-  cursor: pointer;
-}
-</style>

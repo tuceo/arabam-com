@@ -1,9 +1,12 @@
 <template>
-  <button @click="$router.back()" class="back-btn">
-    <span class="icon">←</span> İlan Listesine Dön
+  <button
+    @click="$router.back()"
+    class="mb-2 cursor-pointer border-none bg-transparent p-0 text-gray-800 hover:text-gray-600"
+  >
+    <span class="text-lg">←</span> İlan Listesine Dön
   </button>
 
-  <div v-if="loading" class="loading">Yükleniyor...</div>
+  <div v-if="loading" class="">Yükleniyor...</div>
 
   <div v-else-if="error">Bir hata oluştu.</div>
 
@@ -45,22 +48,3 @@ onMounted(() => {
   fetchCarDetail()
 })
 </script>
-
-<style scoped>
-.back-btn {
-  margin-bottom: 15px;
-  padding: 0;
-  background: none;
-  border: none;
-  color: var(--color-text-main);
-  cursor: pointer;
-}
-
-.back-btn:hover {
-  color: var(--color-text-light);
-}
-
-.back-btn .icon {
-  font-size: 18px;
-}
-</style>

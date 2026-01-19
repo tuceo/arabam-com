@@ -1,39 +1,50 @@
 <template>
-  <table class="car-table">
+  <table class="w-full border-collapse text-sm">
     <thead>
       <tr>
-        <th>Model</th>
-        <th>İlan Başlığı</th>
-        <th>Yıl</th>
-        <th>Kilometre</th>
-        <th>Renk</th>
-        <th>Fiyat</th>
-        <th>Tarih</th>
-        <th>İl / İlçe</th>
+        <th class="border-b-2 border-gray-200 p-3 px-2 text-left">Model</th>
+        <th class="border-b-2 border-gray-200 p-3 px-2 text-left">İlan Başlığı</th>
+        <th class="border-b-2 border-gray-200 p-3 px-2 text-left">Yıl</th>
+        <th class="border-b-2 border-gray-200 p-3 px-2 text-left">Kilometre</th>
+        <th class="border-b-2 border-gray-200 p-3 px-2 text-left">Renk</th>
+        <th class="border-b-2 border-gray-200 p-3 px-2 text-left">Fiyat</th>
+        <th class="border-b-2 border-gray-200 p-3 px-2 text-left">Tarih</th>
+        <th class="border-b-2 border-gray-200 p-3 px-2 text-left">İl / İlçe</th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="car in props.cars" :key="car.id" class="car-row" @click="goToDetail(car.id)">
-        <td class="model-td">
-          <div class="model-info">
-            <img :src="formatPhoto(car.photo)" :alt="car.title" class="car-photo" />
+      <tr
+        v-for="car in props.cars"
+        :key="car.id"
+        class="cursor-pointer border-b border-gray-200 hover:bg-red-100"
+        @click="goToDetail(car.id)"
+      >
+        <td class="p-2">
+          <div class="flex items-center gap-5">
+            <img
+              :src="formatPhoto(car.photo)"
+              :alt="car.title"
+              class="h-24 w-32 min-w-32 rounded object-cover"
+            />
             <span>{{ car.modelName }}</span>
           </div>
         </td>
 
-        <td class="title-td">{{ car.title }}</td>
+        <td class="max-w-60 p-2">{{ car.title }}</td>
 
-        <td>{{ getPropValue(car, 'year') }}</td>
-        <td>{{ getPropValue(car, 'km') }}</td>
-        <td>{{ getPropValue(car, 'color') }}</td>
+        <td class="p-2">{{ getPropValue(car, 'year') }}</td>
+        <td class="p-2">{{ getPropValue(car, 'km') }}</td>
+        <td class="p-2">{{ getPropValue(car, 'color') }}</td>
 
-        <td class="price-td">{{ car.priceFormatted }}</td>
+        <td class="whitespace-nowrap p-2 text-sm font-bold text-red-600">
+          {{ car.priceFormatted }}
+        </td>
 
-        <td>{{ car.dateFormatted }}</td>
+        <td class="p-2">{{ car.dateFormatted }}</td>
 
-        <td class="location-td">
+        <td class="p-2">
           {{ car.location.cityName }}<br />
-          <small>{{ car.location.townName }}</small>
+          <small class="text-gray-600">{{ car.location.townName }}</small>
         </td>
       </tr>
     </tbody>
@@ -63,58 +74,3 @@ const formatPhoto = (photoUrl: string): string => {
   return photoUrl.replace('{0}', '800x600')
 }
 </script>
-
-<style scoped>
-.car-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-
-.car-table th {
-  padding: 12px 8px;
-  text-align: left;
-  border-bottom: 2px solid var(--color-gray);
-}
-
-.car-row {
-  border-bottom: 1px solid var(--color-gray);
-}
-
-.car-row:hover {
-  background-color: var(--color-light-red);
-  cursor: pointer;
-}
-
-.car-table td {
-  padding: 10px 8px;
-}
-
-.model-info {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.car-photo {
-  width: 120px;
-  height: 90px;
-  object-fit: cover;
-  border-radius: 4px;
-}
-
-.title-td {
-  max-width: 250px;
-}
-
-.price-td {
-  color: var(--color-red);
-  font-weight: bold;
-  font-size: 15px;
-  white-space: nowrap;
-}
-
-.location-td small {
-  color: var(--color-text-light);
-}
-</style>

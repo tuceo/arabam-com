@@ -1,7 +1,7 @@
 <template>
-  <header class="detail-header">
-    <h1>{{ props.carDetail.title }}</h1>
-    <p class="location-text">
+  <header class="mb-5">
+    <h1 class="text-lg text-gray-800">{{ props.carDetail.title }}</h1>
+    <p class="text-sm text-gray-600">
       {{ props.carDetail.location.cityName }}, {{ props.carDetail.location.townName }}
     </p>
   </header>
@@ -14,14 +14,3 @@ const props = defineProps<{
   carDetail: CarDetail
 }>()
 </script>
-
-<style scoped>
-.detail-header h1 {
-  font-size: 18px;
-  color: var(--color-text-main);
-}
-.location-text {
-  color: var(--color-text-light);
-  font-size: 13px;
-}
-</style>

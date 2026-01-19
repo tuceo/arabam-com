@@ -1,17 +1,1 @@
-:root {
-  --color-white: #ffffff;
-  --color-black: #000000;
-  --color-red: #e40030;
-  --color-light-red: #ffedf1;
-  --color-gray: #dddddd;
-  --color-light-gray: #f7f7f7;
-
-  --color-text-main: #333333;
-  --color-text-light: #666666;
-}
-
-body {
-  margin: 0;
-  background-color: var(--color-light-gray);
-  font-family: Arial;
-}
+@import 'tailwindcss';
