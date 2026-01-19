@@ -25,8 +25,12 @@ import { onMounted, ref, watch } from 'vue'
 import axios from 'axios'
 import type { Car } from '@/utils/types'
 import ListTable from '../components/ListTable.vue'
+import { useRoute, useRouter } from 'vue-router'
 
-const itemsPerPage = ref(20)
+const route = useRoute()
+const router = useRouter()
+
+const itemsPerPage = ref(Number(route.query.limit) || 20)
 
 const cars = ref<Car[]>([])
 const loading = ref(true)
@@ -46,13 +50,20 @@ const fetchCars = async () => {
   }
 }
 
-onMounted(() => {
-  fetchCars()
+watch(itemsPerPage, (newLimit) => {
+  router.replace({
+    query: { ...route.query, limit: newLimit.toString() },
+  })
 })
 
-watch(itemsPerPage, () => {
-  fetchCars()
-})
+watch(
+  () => route.query.limit,
+  () => {
+    fetchCars()
+  },
+)
+
+onMounted(fetchCars)
 </script>
 
 <style scoped>
