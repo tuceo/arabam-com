@@ -29,4 +29,11 @@ const props = defineProps<{
   gap: 30px;
   align-items: start;
 }
+
+@media (max-width: 904px) {
+  .main-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
 </style>

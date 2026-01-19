@@ -33,4 +33,13 @@ import { RouterView } from 'vue-router'
 .page-content {
   margin: 20px 70px;
 }
+
+@media (max-width: 768px) {
+  .page-header {
+    padding: 20px;
+  }
+  .page-content {
+    margin: 20px;
+  }
+}
 </style>

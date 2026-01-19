@@ -167,10 +167,6 @@ onMounted(fetchCars)
   align-items: flex-start;
 }
 
-.content {
-  padding-right: 20px;
-}
-
 .listing-header {
   display: flex;
   justify-content: flex-end;
@@ -204,5 +200,11 @@ onMounted(fetchCars)
   background: var(--color-white);
   border-radius: 4px;
   border: 1px solid var(--color-gray);
+}
+
+@media (max-width: 1173px) {
+  .page-layout {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

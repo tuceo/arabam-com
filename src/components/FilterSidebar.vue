@@ -146,4 +146,10 @@ defineEmits(['update:minYear', 'update:maxYear', 'update:minDate', 'update:maxDa
   font-size: 16px;
   cursor: pointer;
 }
+
+@media (max-width: 1173px) {
+  .filter-inputs.vertical {
+    flex-direction: row;
+  }
+}
 </style>

@@ -113,4 +113,14 @@ const formatPhoto = (photoUrl: string | undefined): string => {
 .photo-indexes div.active {
   background-color: var(--color-light-gray);
 }
+
+@media (max-width: 768px) {
+  .image-container {
+    height: 300px;
+  }
+  .slider-nav {
+    padding: 15px 8px;
+    font-size: 18px;
+  }
+}
 </style>
