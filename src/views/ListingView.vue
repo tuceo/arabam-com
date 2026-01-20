@@ -1,80 +1,116 @@
 <template>
-  <div class="grid items-start gap-6 grid-cols-1 xl:grid-cols-4">
-    <FilterSidebar
-      v-model:minYear="minYear"
-      v-model:maxYear="maxYear"
-      v-model:minDate="minDate"
-      v-model:maxDate="maxDate"
-      @search="handleSearch"
-      class="xl:sticky xl:top-5"
-    />
+  <div class="relative">
+    <div class="grid items-start gap-6 grid-cols-1 xl:grid-cols-4">
+      <FilterSidebar
+        v-model:minYear="minYear"
+        v-model:maxYear="maxYear"
+        v-model:minDate="minDate"
+        v-model:maxDate="maxDate"
+        @search="handleSearch"
+        class="xl:sticky xl:top-5"
+      />
 
-    <main class="xl:col-span-3">
-      <div
-        class="mb-4 flex flex-col sm:flex-row justify-end gap-5 rounded bg-white p-5 shadow-sm"
-      >
-        <div class="flex items-center gap-2 text-sm text-gray-800">
-          <label class="font-semibold">Sıralama:</label>
-          <select
-            :value="`${sort}-${direction}`"
-            @change="handleSortChange"
-            class="rounded border border-gray-200 p-2 bg-gray-50 outline-none focus:border-red-600"
-          >
-            <option value="0-0">Fiyata Göre Artan</option>
-            <option value="0-1">Fiyata Göre Azalan</option>
-            <option value="1-1">Tarihe Göre En Yeni</option>
-            <option value="1-0">Tarihe Göre En Eski</option>
-            <option value="2-1">Yıla Göre En Yeni</option>
-            <option value="2-0">Yıla Göre En Eski</option>
-          </select>
-        </div>
-        <div class="flex items-center gap-2 text-sm text-gray-800">
-          <label class="font-semibold">Görünüm:</label>
-          <select
-            v-model="itemsPerPage"
-            class="rounded border border-gray-200 p-2 bg-gray-100 outline-none focus:border-red-600"
-          >
-            <option :value="20">20 Ürün</option>
-            <option :value="50">50 Ürün</option>
-          </select>
-        </div>
-      </div>
-
-      <FilterChips :filters="activeFilters" @clear-all="clearAllFilters" class="mb-4" />
-
-      <div
-        v-if="loading"
-        class="rounded border border-gray-200 bg-white p-12 text-center text-gray-600"
-      >
-        İlanlar yükleniyor...
-      </div>
-
-      <div
-        v-else-if="error"
-        class="rounded border border-gray-200 bg-white p-12 text-center text-red-600"
-      >
-        Veriler alınırken bir hata oluştu. Lütfen tekrar deneyin.
-      </div>
-
-      <template v-else>
-        <div v-if="cars.length > 0">
-          <div class="hidden lg:block">
-            <ListTable :cars="cars" />
+      <main class="xl:col-span-3">
+        <div
+          class="mb-4 flex flex-col sm:flex-row justify-end gap-5 rounded bg-white p-5 shadow-sm"
+        >
+          <div class="flex items-center gap-2 text-sm text-gray-800">
+            <label class="font-semibold">Sıralama:</label>
+            <select
+              :value="`${sort}-${direction}`"
+              @change="handleSortChange"
+              class="rounded border border-gray-200 p-2 bg-gray-50 outline-none focus:border-red-600"
+            >
+              <option value="0-0">Fiyata Göre Artan</option>
+              <option value="0-1">Fiyata Göre Azalan</option>
+              <option value="1-1">Tarihe Göre En Yeni</option>
+              <option value="1-0">Tarihe Göre En Eski</option>
+              <option value="2-1">Yıla Göre En Yeni</option>
+              <option value="2-0">Yıla Göre En Eski</option>
+            </select>
           </div>
-
-          <div class="grid grid-cols-1 gap-4 lg:hidden">
-            <CarCard v-for="car in cars" :key="car.id" :car="car" />
+          <div class="flex items-center gap-2 text-sm text-gray-800">
+            <label class="font-semibold">Görünüm:</label>
+            <select
+              v-model="itemsPerPage"
+              class="rounded border border-gray-200 p-2 bg-gray-100 outline-none focus:border-red-600"
+            >
+              <option :value="20">20 Ürün</option>
+              <option :value="50">50 Ürün</option>
+            </select>
           </div>
+        </div>
+
+        <FilterChips :filters="activeFilters" @clear-all="clearAllFilters" class="mb-4" />
+
+        <div
+          v-if="loading"
+          class="rounded border border-gray-200 bg-white p-12 text-center text-gray-600"
+        >
+          İlanlar yükleniyor...
         </div>
 
         <div
-          v-else
-          class="rounded border border-gray-200 bg-white p-12 text-center text-gray-600 font-medium"
+          v-else-if="error"
+        class="rounded border border-gray-200 bg-white p-12 text-center text-red-600"
         >
-          Aramanızla eşleşen ilan bulunamadı.
+          Veriler alınırken bir hata oluştu. Lütfen tekrar deneyin.
         </div>
-      </template>
-    </main>
+
+        <template v-else>
+          <div v-if="cars.length > 0">
+            <div class="hidden lg:block">
+              <ListTable :cars="cars" />
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 lg:hidden">
+              <CarCard v-for="car in cars" :key="car.id" :car="car" />
+            </div>
+          </div>
+
+          <div
+            v-else
+            class="rounded border border-gray-200 bg-white p-12 text-center text-gray-600 font-medium"
+          >
+            Aramanızla eşleşen ilan bulunamadı.
+          </div>
+        </template>
+      </main>
+    </div>
+
+    <div
+      v-if="compStore.selectedCars.length > 0"
+      class="fixed bottom-10 left-1/2 z-50 -translate-x-1/2 transition-all duration-300"
+    >
+      <div
+        class="flex items-center gap-4 rounded-full bg-gray-900 p-2 pl-6 shadow-2xl border border-gray-700"
+      >
+        <span class="text-sm font-medium text-white">
+          {{ compStore.selectedCars.length }} / 2 Araç Seçildi
+        </span>
+        <div class="flex gap-2">
+          <button
+            @click="compStore.clearSelection"
+            class="rounded-full bg-gray-700 px-4 py-2 text-xs font-bold text-white hover:bg-gray-600 cursor-pointer border-none"
+          >
+            Temizle
+          </button>
+          <button
+            @click="showCompareModal = true"
+            :disabled="compStore.selectedCars.length < 2"
+            class="rounded-full bg-red-600 px-6 py-2 text-sm font-bold text-white transition-all hover:bg-red-700 disabled:bg-gray-500 disabled:cursor-not-allowed cursor-pointer border-none"
+          >
+            Hemen Karşılaştır
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <ComparisonModal
+      :isOpen="showCompareModal"
+      :cars="compStore.selectedCars"
+      @close="showCompareModal = false"
+    />
   </div>
 </template>
 
@@ -83,12 +119,17 @@ import { onMounted, ref, watch, computed } from 'vue'
 import axios from 'axios'
 import type { Car } from '@/utils/types'
 import { useRoute, useRouter } from 'vue-router'
+import { useComparisonStore } from '@/store/comparisonStore'
+
 import ListTable from '../components/ListTable.vue'
 import FilterSidebar from '../components/FilterSidebar.vue'
 import FilterChips from '../components/FilterChips.vue'
 import CarCard from '../components/CarCard.vue'
+import ComparisonModal from '../components/ComparisonModal.vue'
+
 const route = useRoute()
 const router = useRouter()
+const compStore = useComparisonStore()
 
 const minYear = ref(route.query.minYear?.toString() || '')
 const maxYear = ref(route.query.maxYear?.toString() || '')
@@ -97,6 +138,7 @@ const maxDate = ref(route.query.maxDate?.toString() || '')
 const itemsPerPage = ref(Number(route.query.limit) || 20)
 const sort = ref(Number(route.query.sort) || 0)
 const direction = ref(Number(route.query.direction) || 1)
+const showCompareModal = ref(false)
 
 const cars = ref<Car[]>([])
 const loading = ref(true)

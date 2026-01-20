@@ -16,7 +16,7 @@
       <tr
         v-for="car in props.cars"
         :key="car.id"
-        class="cursor-pointer border-b border-gray-200 hover:bg-red-100"
+        class="group relative cursor-pointer border-b border-gray-200 bg-white hover:bg-red-50"
         @click="goToDetail(car.id)"
       >
         <td class="p-2">
@@ -44,7 +44,17 @@
 
         <td class="p-2">
           {{ car.location.cityName }}<br />
-          <small class="text-gray-600">{{ car.location.townName }}</small>
+          <span class="text-gray-600">{{ car.location.townName }}</span>
+
+          <div
+            class="absolute bottom-2 right-2 z-10"
+            :class="
+              compStore.isSelected(car.id) ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+            "
+            @click.stop
+          >
+            <CompareButton :car="car" />
+          </div>
         </td>
       </tr>
     </tbody>
@@ -54,12 +64,15 @@
 <script setup lang="ts">
 import type { Car } from '@/utils/types'
 import { useRouter } from 'vue-router'
+import { useComparisonStore } from '@/store/comparisonStore'
+import CompareButton from './CompareButton.vue'
 
 const props = defineProps<{
   cars: Car[]
 }>()
 
 const router = useRouter()
+const compStore = useComparisonStore()
 
 const goToDetail = (id: number) => {
   router.push({ name: 'detail', params: { id } })

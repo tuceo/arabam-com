@@ -1,7 +1,7 @@
 <template>
   <div
     @click="goToDetail(props.car.id)"
-    class="flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm active:scale-[0.98] transition-transform cursor-pointer"
+    class="relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm"
   >
     <div class="relative h-48 w-full">
       <img
@@ -9,6 +9,10 @@
         :alt="props.car.title"
         class="h-full w-full object-cover"
       />
+
+      <div class="absolute bottom-2 right-2 z-10">
+        <CompareButton :car="props.car" />
+      </div>
     </div>
 
     <div class="flex flex-col p-4">
@@ -29,11 +33,9 @@
 <script setup lang="ts">
 import type { Car } from '@/utils/types'
 import { useRouter } from 'vue-router'
+import CompareButton from './CompareButton.vue'
 
-const props = defineProps<{
-  car: Car
-}>()
-
+const props = defineProps<{ car: Car }>()
 const router = useRouter()
 
 const goToDetail = (id: number) => {
