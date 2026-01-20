@@ -75,9 +75,11 @@
               <tr
                 v-for="propName in allPropertyNames"
                 :key="propName"
-                class="transition-colors"
+                class="transition-colors hover:bg-gray-50"
               >
-                <td class="p-4 text-xs font-semibold uppercase text-gray-500">{{ propName }}</td>
+                <td class="p-4 text-xs font-semibold text-gray-500">
+                  {{ translatePropName(propName) }}
+                </td>
                 <td v-for="car in cars" :key="car.id" class="p-4 text-center text-sm">
                   {{ getCarPropValue(car, propName) }}
                 </td>
@@ -117,6 +119,18 @@ const props = defineProps<{
 
 const emit = defineEmits(['close'])
 const compStore = useComparisonStore()
+
+const propertyMap: Record<string, string> = {
+  year: 'Yıl',
+  km: 'Kilometre',
+  color: 'Renk',
+  gear: 'Vites',
+  fuel: 'Yakıt',
+}
+
+const translatePropName = (name: string) => {
+  return propertyMap[name.toLowerCase()] || name.toUpperCase()
+}
 
 const handleClearAndClose = () => {
   compStore.clearSelection()

@@ -12,6 +12,8 @@ export const useComparisonStore = defineStore('comparison', () => {
       selectedCars.value.splice(index, 1)
     } else if (selectedCars.value.length < 2) {
       selectedCars.value.push(car)
+    } else {
+      alert('En fazla 2 araç karşılaştırabilirsiniz.')
     }
   }
 

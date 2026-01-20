@@ -27,8 +27,8 @@
       <div
         v-for="(photo, index) in props.photos"
         :key="index"
-        class="h-2.5 w-2.5 cursor-pointer rounded-full bg-gray-600"
-        :class="{ 'bg-gray-200': activePhotoIndex === index }"
+        class="h-2.5 w-2.5 cursor-pointer rounded-full bg-gray-100"
+        :class="{ 'bg-gray-300': activePhotoIndex === index }"
         @click="activePhotoIndex = index"
       ></div>
     </div>
