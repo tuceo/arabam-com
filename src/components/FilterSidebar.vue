@@ -9,6 +9,7 @@
             :value="minYear"
             @input="$emit('update:minYear', ($event.target as HTMLInputElement).value)"
             placeholder="Min"
+            min="0"
             class="min-w-0 max-w-full w-full box-border rounded border border-gray-200 bg-gray-100 p-2 text-sm outline-none focus:border-red-600"
           />
           <input
@@ -16,6 +17,7 @@
             :value="maxYear"
             @input="$emit('update:maxYear', ($event.target as HTMLInputElement).value)"
             placeholder="Max"
+            min="0"
             class="min-w-0 max-w-full w-full box-border rounded border border-gray-200 bg-gray-100 p-2 text-sm outline-none focus:border-red-600"
           />
         </div>
