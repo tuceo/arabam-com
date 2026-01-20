@@ -1,48 +1,49 @@
-# arabam-com
+# Arabam.com Case Study
 
-This template should help get you started developing with Vue 3 in Vite.
+> **🔴 Live Demo:** [https://racing-horses.vercel.app/](https://arabam-com.vercel.app/)
 
-## Recommended IDE Setup
+<img width="1865" height="929" alt="image" src="https://github.com/user-attachments/assets/671e307a-7d69-463e-ba0d-e27246df7f31" />
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+This project is a Single Page Application (SPA) developed as a case study for **Arabam.com**. It features a comprehensive vehicle listing system, a detailed information view, and a side-by-side technical comparison tool.
 
-## Recommended Browser Setup
+## 🚀 Features
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+The following features were developed in strict accordance with the project requirements, focusing on a **Mobile-First** approach and modern UI/UX standards:
 
-## Type Support for `.vue` Imports in TS
+### 1.Listing Page
+* **Responsive Layout:** Implemented a detailed `ListTable` for desktop and a `CarCard` view for mobile devices with vehicle images.
+* **Dynamic Filtering:** Users can filter listings by **Year** and **Listing Date** all of which are synchronized with the URL query parameters.
+* **Smart Sorting:** Integrated API-based sorting for Price, Year, and Date in both ascending and descending directions.
+* **Dynamic Advert Size:** Users can change the number of adverts on the page (20 or 50 adverts).
+* **Filter Chips:** Interactive chips that allow users to track and remove active filters with a single click.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+### 2. Detail Page
+* **Responsive Layout:** Implemented a detailed with vehicle page.
+* **Image Slider & Zoom:** An interactive slider with a fullscreen "Zoom" mode.
 
-## Customize configuration
+### 3. Side-by-Side Comparison Tool
+* **Centralized State Management:** Compare selected vehicles in listing page.
+* **Technical Specification Mapping:** A dynamic modal that aligns technical data for side-by-side comparison.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## 🛠 Tech Stack
 
-## Project Setup
+* **Framework:** Vue 3
+* **State Management:** Pinia
+* **Styling:** Tailwind CSS v4
+* **Routing:** Vue Router
+* **HTTP Client:** Axios
+* **Build Tool:** Vite
 
-```sh
-npm install
-```
+## ⚙️ Installation & Setup
 
-### Compile and Hot-Reload for Development
+1. **Install Dependencies:**
+   ```bash
+   npm install
 
-```sh
-npm run dev
-```
+2. **Start Development Server**:
+   ```bash
+   npm run dev
 
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+3. **Build for Production**:
+   ```bash
+    npm run build
