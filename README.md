@@ -1,6 +1,6 @@
 # 🚗 Arabam.com Case Study
 
-> **🔴 Live Demo:** [https://racing-horses.vercel.app/](https://arabam-com.vercel.app/)
+> **🔴 Live Demo:** [https://arabam-com.vercel.app/](https://arabam-com.vercel.app/)
 
 <img width="1865" height="929" alt="image" src="https://github.com/user-attachments/assets/671e307a-7d69-463e-ba0d-e27246df7f31" />
 
