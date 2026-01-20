@@ -1,23 +1,24 @@
 <template>
-  <div class="grid items-start gap-5 grid-cols-1 lg:grid-cols-4">
+  <div class="grid items-start gap-6 grid-cols-1 xl:grid-cols-4">
     <FilterSidebar
       v-model:minYear="minYear"
       v-model:maxYear="maxYear"
       v-model:minDate="minDate"
       v-model:maxDate="maxDate"
       @search="handleSearch"
+      class="xl:sticky xl:top-5"
     />
 
-    <main class="lg:col-span-3">
+    <main class="xl:col-span-3">
       <div
-        class="mb-2 flex flex-col sm:flex-row justify-end gap-5 rounded border border-gray-200 bg-white p-5"
+        class="mb-4 flex flex-col sm:flex-row justify-end gap-5 rounded bg-white p-5 shadow-sm"
       >
-        <div class="flex items-center gap-2 text-sm">
-          <label>Sıralama:</label>
+        <div class="flex items-center gap-2 text-sm text-gray-800">
+          <label class="font-semibold">Sıralama:</label>
           <select
             :value="`${sort}-${direction}`"
             @change="handleSortChange"
-            class="rounded border border-gray-200 p-2"
+            class="rounded border border-gray-200 p-2 bg-gray-50 outline-none focus:border-red-600"
           >
             <option value="0-0">Fiyata Göre Artan</option>
             <option value="0-1">Fiyata Göre Azalan</option>
@@ -27,27 +28,50 @@
             <option value="2-0">Yıla Göre En Eski</option>
           </select>
         </div>
-        <div class="flex items-center gap-2 text-sm">
-          <label>Görünüm:</label>
-          <select v-model="itemsPerPage" class="rounded border border-gray-200 p-2">
+        <div class="flex items-center gap-2 text-sm text-gray-800">
+          <label class="font-semibold">Görünüm:</label>
+          <select
+            v-model="itemsPerPage"
+            class="rounded border border-gray-200 p-2 bg-gray-100 outline-none focus:border-red-600"
+          >
             <option :value="20">20 Ürün</option>
             <option :value="50">50 Ürün</option>
           </select>
         </div>
       </div>
 
-      <FilterChips :filters="activeFilters" @clear-all="clearAllFilters" />
+      <FilterChips :filters="activeFilters" @clear-all="clearAllFilters" class="mb-4" />
 
-      <div v-if="loading" class="rounded border border-gray-200 bg-white p-5 text-center">
-        Yükleniyor...
+      <div
+        v-if="loading"
+        class="rounded border border-gray-200 bg-white p-12 text-center text-gray-600"
+      >
+        İlanlar yükleniyor...
       </div>
-      <div v-else-if="error" class="rounded border border-gray-200 bg-white p-5 text-center">
-        Bir hata oluştu.
+
+      <div
+        v-else-if="error"
+        class="rounded border border-gray-200 bg-white p-12 text-center text-red-600"
+      >
+        Veriler alınırken bir hata oluştu. Lütfen tekrar deneyin.
       </div>
+
       <template v-else>
-        <ListTable v-if="cars.length > 0" :cars="cars" />
-        <div v-else class="rounded border border-gray-200 bg-white p-5 text-center">
-          Gösterilecek ilan bulunamadı.
+        <div v-if="cars.length > 0">
+          <div class="hidden lg:block">
+            <ListTable :cars="cars" />
+          </div>
+
+          <div class="grid grid-cols-1 gap-4 lg:hidden">
+            <CarCard v-for="car in cars" :key="car.id" :car="car" />
+          </div>
+        </div>
+
+        <div
+          v-else
+          class="rounded border border-gray-200 bg-white p-12 text-center text-gray-600 font-medium"
+        >
+          Aramanızla eşleşen ilan bulunamadı.
         </div>
       </template>
     </main>
@@ -62,7 +86,7 @@ import { useRoute, useRouter } from 'vue-router'
 import ListTable from '../components/ListTable.vue'
 import FilterSidebar from '../components/FilterSidebar.vue'
 import FilterChips from '../components/FilterChips.vue'
-
+import CarCard from '../components/CarCard.vue'
 const route = useRoute()
 const router = useRouter()
 

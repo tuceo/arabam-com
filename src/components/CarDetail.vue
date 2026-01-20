@@ -1,7 +1,7 @@
 <template>
   <CarHeader :carDetail="props.carDetail" />
 
-  <div class="grid grid-cols-1 items-start gap-5 md:grid-cols-[1fr_350px]">
+  <div class="grid grid-cols-1 items-start gap-5 lg:grid-cols-[1fr_350px]">
     <CarImageSlider :photos="props.carDetail.photos" :modelName="props.carDetail.modelName" />
 
     <CarInfo :carDetail="props.carDetail" />

@@ -1,5 +1,5 @@
 <template>
-  <aside class="rounded border border-gray-200 bg-white">
+  <aside class="rounded bg-white shadow-sm">
     <div class="p-5">
       <div class="mb-5">
         <h3 class="mb-2 border-b border-gray-200 pb-2 text-sm font-bold">Yıl</h3>
